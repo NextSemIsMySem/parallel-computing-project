@@ -5,6 +5,8 @@
 #include <omp.h>
 #include <algorithm> // For std::swap
 
+using namespace std;
+
 /**
  * @brief Solves the linear system Ax = b using the OpenMP parallel Weighted Jacobi method.
  *
@@ -36,17 +38,17 @@
  * @param iterations_taken Reference to store the number of iterations performed.
  * @return The solution vector x.
  */
-std::vector<double> jacobi_omp(
-    const std::vector<double>& A, 
-    const std::vector<double>& b, 
+vector<double> jacobi_omp(
+    const vector<double>& A, 
+    const vector<double>& b, 
     int N, 
     int max_iterations, 
     double tolerance, 
     double omega,
     int& iterations_taken) 
 {
-    std::vector<double> x_current(N, 0.0);
-    std::vector<double> x_next(N, 0.0);
+    vector<double> x_current(N, 0.0);
+    vector<double> x_next(N, 0.0);
 
     double error = tolerance + 1.0; // Ensure the loop starts
     iterations_taken = 0;
@@ -70,7 +72,7 @@ std::vector<double> jacobi_omp(
             }
             
             double A_ii = A[i * N + i];
-            if (std::abs(A_ii) < 1e-9) {
+            if (abs(A_ii) < 1e-9) {
                 A_ii = 1e-9;
             }
 
@@ -80,7 +82,7 @@ std::vector<double> jacobi_omp(
 
         // Pointer swap is a serial operation, performed by the master thread.
         // This is a critical optimization to avoid deep copying the vectors.
-        std::swap(x_current, x_next);
+        swap(x_current, x_next);
 
         // Convergence check is performed serially and periodically.
         if (iterations_taken % 10 == 0) {
@@ -92,7 +94,7 @@ std::vector<double> jacobi_omp(
     
     // Final error calculation
     error = calculate_l2_norm(A, x_current, b, N);
-    std::cout << "Final Error (L2 Norm): " << error << std::endl;
+    cout << "Final Error (L2 Norm): " << error << endl;
 
     return x_current;
 }

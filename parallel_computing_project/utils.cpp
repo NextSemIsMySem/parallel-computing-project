@@ -4,6 +4,8 @@
 #include <random>
 #include <numeric>
 
+using namespace std;
+
 /**
  * @brief Generates a strictly diagonally dominant NxN matrix.
  *
@@ -16,18 +18,18 @@
  * @param N The dimension of the matrix.
  * @return A std::vector<double> representing the flattened matrix.
  */
-std::vector<double> generate_diagonally_dominant_matrix(int N) {
-    std::vector<double> A(N * N);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0.0, 1.0);
+vector<double> generate_diagonally_dominant_matrix(int N) {
+    vector<double> A(N * N);
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> dis(0.0, 1.0);
 
     for (int i = 0; i < N; ++i) {
         double row_sum = 0.0;
         for (int j = 0; j < N; ++j) {
             if (i != j) {
                 A[i * N + j] = dis(gen);
-                row_sum += std::abs(A[i * N + j]);
+                row_sum += abs(A[i * N + j]);
             }
         }
         // Set the diagonal element to be greater than the sum of other elements
@@ -42,11 +44,11 @@ std::vector<double> generate_diagonally_dominant_matrix(int N) {
  * @param N The dimension of the vector.
  * @return A std::vector<double> with random values between 0 and 1.
  */
-std::vector<double> generate_vector_b(int N) {
-    std::vector<double> b(N);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0.0, 1.0);
+vector<double> generate_vector_b(int N) {
+    vector<double> b(N);
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> dis(0.0, 1.0);
     for (int i = 0; i < N; ++i) {
         b[i] = dis(gen);
     }
@@ -64,7 +66,7 @@ std::vector<double> generate_vector_b(int N) {
  * @param N The size of the system.
  * @return The L2 norm of the residual.
  */
-double calculate_l2_norm(const std::vector<double>& A, const std::vector<double>& x, const std::vector<double>& b, int N) {
+double calculate_l2_norm(const vector<double>& A, const vector<double>& x, const vector<double>& b, int N) {
     double norm = 0.0;
     for (int i = 0; i < N; ++i) {
         double residual_i = -b[i];
@@ -73,5 +75,5 @@ double calculate_l2_norm(const std::vector<double>& A, const std::vector<double>
         }
         norm += residual_i * residual_i;
     }
-    return std::sqrt(norm);
+    return sqrt(norm);
 }

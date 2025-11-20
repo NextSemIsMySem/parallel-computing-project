@@ -4,6 +4,8 @@
 #include <cmath>
 #include <algorithm> // For std::swap
 
+using namespace std;
+
 /**
  * @brief Solves the linear system Ax = b using the sequential Weighted Jacobi method.
  *
@@ -21,9 +23,9 @@
  * @param iterations_taken Reference to store the number of iterations performed.
  * @return The solution vector x.
  */
-std::vector<double> jacobi_serial(
-    const std::vector<double>& A, 
-    const std::vector<double>& b, 
+vector<double> jacobi_serial(
+    const vector<double>& A, 
+    const vector<double>& b, 
     int N, 
     int max_iterations, 
     double tolerance, 
@@ -31,8 +33,8 @@ std::vector<double> jacobi_serial(
     int& iterations_taken) 
 {
     // Initialize solution vector x with zeros
-    std::vector<double> x_current(N, 0.0);
-    std::vector<double> x_next(N, 0.0);
+    vector<double> x_current(N, 0.0);
+    vector<double> x_next(N, 0.0);
 
     double error = tolerance + 1.0; // Ensure the loop starts
     iterations_taken = 0;
@@ -47,7 +49,7 @@ std::vector<double> jacobi_serial(
             }
             
             double A_ii = A[i * N + i];
-            if (std::abs(A_ii) < 1e-9) { // Avoid division by zero
+            if (abs(A_ii) < 1e-9) { // Avoid division by zero
                 // Handle singular or near-singular matrix case
                 // For this assignment, we assume A is well-behaved
                 A_ii = 1e-9;
@@ -59,7 +61,7 @@ std::vector<double> jacobi_serial(
         // Efficiency: Swap pointers instead of copying data.
         // x_current becomes the new x_next for the next iteration,
         // and the old x_next (which now holds the new values) becomes x_current.
-        std::swap(x_current, x_next);
+        swap(x_current, x_next);
 
         // Convergence check is done less frequently to reduce overhead
         if (iterations_taken % 10 == 0) {
@@ -71,7 +73,7 @@ std::vector<double> jacobi_serial(
     
     // Final error calculation
     error = calculate_l2_norm(A, x_current, b, N);
-    std::cout << "Final Error (L2 Norm): " << error << std::endl;
+    cout << "Final Error (L2 Norm): " << error << endl;
 
     return x_current;
 }

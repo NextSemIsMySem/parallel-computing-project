@@ -6,6 +6,8 @@
 #include <omp.h>
 #include "solver.h"
 
+using namespace std;
+
 // --- Configuration ---
 const int N = 1000; // Matrix size (e.g., 1000x1000)
 const int MAX_ITERATIONS = 10000;
@@ -14,46 +16,46 @@ const double OMEGA = 0.66; // Weight for Jacobi method
 
 int main()
 {
-    std::cout << "Setting up problem with matrix size N = " << N << std::endl;
+    cout << "Setting up problem with matrix size N = " << N << endl;
 
     // --- 1. Problem Setup ---
     // Generate a diagonally dominant matrix A and vector b to ensure convergence.
     // This part is not timed as it's considered setup.
-    std::vector<double> A = generate_diagonally_dominant_matrix(N);
-    std::vector<double> b = generate_vector_b(N);
+    vector<double> A = generate_diagonally_dominant_matrix(N);
+    vector<double> b = generate_vector_b(N);
     int iterations_taken;
 
     // --- 2. Serial Execution ---
-    std::cout << "\n--- Running Serial Jacobi Solver ---" << std::endl;
+    cout << "\n--- Running Serial Jacobi Solver ---" << endl;
     double start_time_serial = omp_get_wtime();
     
-    std::vector<double> x_serial = jacobi_serial(A, b, N, MAX_ITERATIONS, TOLERANCE, OMEGA, iterations_taken);
+    vector<double> x_serial = jacobi_serial(A, b, N, MAX_ITERATIONS, TOLERANCE, OMEGA, iterations_taken);
     
     double end_time_serial = omp_get_wtime();
     double time_serial = end_time_serial - start_time_serial;
 
-    std::cout << "Matrix Size (N): " << N << std::endl;
-    std::cout << "Iterations Taken: " << iterations_taken << std::endl;
-    std::cout << "Execution Time (Serial): " << time_serial << " seconds" << std::endl;
+    cout << "Matrix Size (N): " << N << endl;
+    cout << "Iterations Taken: " << iterations_taken << endl;
+    cout << "Execution Time (Serial): " << time_serial << " seconds" << endl;
     // The final error is printed inside the jacobi_serial function.
 
     // --- 3. Parallel Execution (OpenMP) ---
-    std::cout << "\n--- Running Parallel (OpenMP) Jacobi Solver ---" << std::endl;
+    cout << "\n--- Running Parallel (OpenMP) Jacobi Solver ---" << endl;
     double start_time_omp = omp_get_wtime();
 
-    std::vector<double> x_omp = jacobi_omp(A, b, N, MAX_ITERATIONS, TOLERANCE, OMEGA, iterations_taken);
+    vector<double> x_omp = jacobi_omp(A, b, N, MAX_ITERATIONS, TOLERANCE, OMEGA, iterations_taken);
 
     double end_time_omp = omp_get_wtime();
     double time_omp = end_time_omp - start_time_omp;
 
-    std::cout << "Matrix Size (N): " << N << std::endl;
-    std::cout << "Iterations Taken: " << iterations_taken << std::endl;
-    std::cout << "Execution Time (OpenMP): " << time_omp << " seconds" << std::endl;
+    cout << "Matrix Size (N): " << N << endl;
+    cout << "Iterations Taken: " << iterations_taken << endl;
+    cout << "Execution Time (OpenMP): " << time_omp << " seconds" << endl;
     // The final error is printed inside the jacobi_omp function.
 
     // --- 4. Report Speedup ---
     if (time_serial > 0) {
-        std::cout << "\nSpeedup (Serial / OpenMP): " << time_serial / time_omp << "x" << std::endl;
+        cout << "\nSpeedup (Serial / OpenMP): " << time_serial / time_omp << "x" << endl;
     }
 
     return 0;

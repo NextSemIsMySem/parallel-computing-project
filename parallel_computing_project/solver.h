@@ -3,6 +3,8 @@
 
 #include <vector>
 
+using namespace std;
+
 // --- Function Declarations for jacobi_serial.cpp ---
 
 /**
@@ -17,9 +19,9 @@
  * @param iterations_taken Pointer to store the number of iterations performed.
  * @return The solution vector x.
  */
-std::vector<double> jacobi_serial(
-    const std::vector<double>& A, 
-    const std::vector<double>& b, 
+vector<double> jacobi_serial(
+    const vector<double>& A, 
+    const vector<double>& b, 
     int N, 
     int max_iterations, 
     double tolerance, 
@@ -41,9 +43,9 @@ std::vector<double> jacobi_serial(
  * @param iterations_taken Pointer to store the number of iterations performed.
  * @return The solution vector x.
  */
-std::vector<double> jacobi_omp(
-    const std::vector<double>& A, 
-    const std::vector<double>& b, 
+vector<double> jacobi_omp(
+    const vector<double>& A, 
+    const vector<double>& b, 
     int N, 
     int max_iterations, 
     double tolerance, 
@@ -62,7 +64,7 @@ std::vector<double> jacobi_omp(
  * @param N The dimension of the matrix.
  * @return A std::vector<double> representing the flattened matrix.
  */
-std::vector<double> generate_diagonally_dominant_matrix(int N);
+vector<double> generate_diagonally_dominant_matrix(int N);
 
 /**
  * @brief Generates an N-dimensional vector with random values.
@@ -70,7 +72,7 @@ std::vector<double> generate_diagonally_dominant_matrix(int N);
  * @param N The dimension of the vector.
  * @return A std::vector<double> with random values.
  */
-std::vector<double> generate_vector_b(int N);
+vector<double> generate_vector_b(int N);
 
 /**
  * @brief Calculates the L2 Norm (Euclidean norm) of the error vector.
@@ -84,9 +86,9 @@ std::vector<double> generate_vector_b(int N);
  * @return The L2 norm of the error.
  */
 double calculate_l2_norm(
-    const std::vector<double>& A, 
-    const std::vector<double>& x, 
-    const std::vector<double>& b, 
+    const vector<double>& A, 
+    const vector<double>& x, 
+    const vector<double>& b, 
     int N
 );
 
