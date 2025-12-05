@@ -18,18 +18,21 @@
     <ClCompile Include="parallel_computing_project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
+    <ClCompile Include="serial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="jacobi_serial.cpp">
+    <ClCompile Include="parallel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="jacobi_omp.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jacobi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

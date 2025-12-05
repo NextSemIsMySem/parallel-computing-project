@@ -127,12 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="jacobi_omp.cpp" />
-    <ClCompile Include="jacobi_serial.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="parallel.cpp" />
     <ClCompile Include="parallel_computing_project.cpp" />
-    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="serial.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="jacobi.h" />
     <ClInclude Include="solver.h" />
   </ItemGroup>
   <ItemGroup>
